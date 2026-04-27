@@ -5,45 +5,41 @@
 </head>
 <body>
 
-<h2>Kalkulator Sederhana</h2>
+<h2>Kalkulator</h2>
 
 <form method="post">
-    Angka 1:
-    <input type="number" name="angka1" required><br><br>
+    <input type="text" name="angka1" placeholder="Masukkan angka 1"><br><br>
+    <input type="text" name="angka2" placeholder="Masukkan angka 2"><br><br>
 
-    Angka 2:
-    <input type="number" name="angka2" required><br><br>
-
-    Operasi:
     <select name="operasi">
-        <option value="tambah">Tambah</option>
-        <option value="kurang">Kurang</option>
-        <option value="kali">Kali</option>
-        <option value="bagi">Bagi</option>
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
     </select><br><br>
 
-    <button type="submit" name="hitung">Hitung</button>
+    <button type="submit">Hitung</button>
 </form>
 
 <?php
-if(isset($_POST['hitung'])){
-    $a = $_POST['angka1'];
-    $b = $_POST['angka2'];
-    $op = $_POST['operasi'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $a = (float) $_POST["angka1"];
+    $b = (float) $_POST["angka2"];
+    $op = $_POST["operasi"];
+    $hasil = 0;
 
-    if($op == "tambah"){
+    if ($op == "+") {
         $hasil = $a + $b;
-    } elseif($op == "kurang"){
+    } elseif ($op == "-") {
         $hasil = $a - $b;
-    } elseif($op == "kali"){
+    } elseif ($op == "*") {
         $hasil = $a * $b;
-    } elseif($op == "bagi"){
-        if($b != 0){
-            $hasil = $a / $b;
-        } else {
-            echo "Tidak bisa bagi dengan 0";
+    } elseif ($op == "/") {
+        if ($b == 0) {
+            echo "Tidak bisa dibagi 0";
             exit;
         }
+        $hasil = $a / $b;
     }
 
     echo "<h3>Hasil: $hasil</h3>";
